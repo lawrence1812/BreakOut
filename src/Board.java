@@ -46,12 +46,9 @@ public class Board extends JPanel {
 
         ball = new Ball();
         balls = new Ball[0];
-        brick = new Brick(150, 200);
-
-        System.out.println("length" + balls.length);
+        brick = new Brick(150, 100);
         
         for (int i = 0; i < balls.length; i++) {
-            //System.out.println(i);
             balls[i] = new Ball();
             balls[i].setX(10 * i);
         }
@@ -92,7 +89,7 @@ public class Board extends JPanel {
 
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
-        g2d.drawString("Boss ale vite perse: "+ tempCounter, (Commons.WIDTH - fontMetrics.stringWidth(message))/2 , Commons.HEIGHT / 8);
+        g2d.drawString("Points: "+ tempCounter, (Commons.WIDTH - fontMetrics.stringWidth(message))/2 , Commons.HEIGHT / 8);
     }
 
     private void gameFinished(Graphics2D g2d) {
@@ -129,7 +126,6 @@ public class Board extends JPanel {
     private void doGameCycle() {   
         ball.move();
         for (int i = 0; i < balls.length; i++) {
-            //System.out.println(i);
             balls[i].move();
         }
         
@@ -148,14 +144,16 @@ public class Board extends JPanel {
     }
 
     private void checkCollision() {
-        if(ball.getY() > brick.getY() && ball.getY() < brick.getY()+brick.getImageHeight() && 
-        ball.getX() > brick.getX() && ball.getX() < brick.getX()+brick.getImageWidth()) {
-            brick.ballPosition(ball.getX(),ball.getY());
+        if(ball.getY()+ball.getImageHeight() > brick.getY() && ball.getY() < brick.getY()+brick.getImageHeight() 
+        && ball.getX() > brick.getX() && ball.getX() < brick.getX()+brick.getImageWidth()
+        ) {
+            //brick.ballPosition(ball.getX(),ball.getY());
             ball.setYDir(ball.getYDir()*-1);
             ball.incrementaVel();
             tempCounter++;
-            brick.setX((int)(Math.random()* (Commons.HEIGHT-brick.getImageHeight())));
-            brick.setY((int)(Math.random()* (Commons.WIDTH-brick.getImageWidth())));
+            brick.setX((int)(Math.random()* Commons.WIDTH)-brick.getImageWidth());
+            brick.setY(100);//(int)(Math.random()* (Commons.WIDTH-brick.getImageWidth())));
+            brick.position();
         }
     }
 }

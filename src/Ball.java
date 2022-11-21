@@ -11,14 +11,13 @@ public class Ball extends Sprite {
     }
     private void initBall() {
         xdir = 1;
-        ydir = -9;
-        vel = 1;
+        ydir = 0;
+        vel = 3;
 
 
         loadImage();
         getImageDimensions();
         resetState();
-        getMiddlePoint();
     }
 
     private void loadImage() {

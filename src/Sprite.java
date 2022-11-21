@@ -7,7 +7,6 @@ import java.awt.Rectangle;
  */
 public class Sprite {
     int x, y, imageWidth, imageHeight;
-    int imgMidPointX, imgMidPointY;
     Image image;
 
     public int getX() {
@@ -47,15 +46,4 @@ public class Sprite {
         imageWidth = image.getWidth(null);
         imageHeight = image.getHeight(null);
     }
-
-
-    public void getMiddlePoint() {
-        if(imageWidth%2 != 0 && imageHeight%2 != 0) {
-            imgMidPointX = imageWidth/2+1;
-            imgMidPointY = imageHeight/2+1;
-        } 
-    }
-
-
-
 }

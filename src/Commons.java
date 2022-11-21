@@ -7,7 +7,7 @@ public interface Commons {
     int N_OF_BRICKS = 30;
     int INIT_PADDLE_X = 200;
     int INIT_PADDLE_Y = 360;
-    int INIT_BALL_X = WIDTH/2;
-    int INIT_BALL_Y = HEIGHT-50;    
+    int INIT_BALL_X = 70;
+    int INIT_BALL_Y = 100;    
     int PERIOD = 1;
 }
