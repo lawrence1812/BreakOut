@@ -8,6 +8,6 @@ public interface Commons {
     int INIT_PADDLE_X = 200;
     int INIT_PADDLE_Y = 360;
     int INIT_BALL_X = 70;
-    int INIT_BALL_Y = 100;    
+    int INIT_BALL_Y = 195;    
     int PERIOD = 1;
 }

@@ -11,7 +11,7 @@ public class Brick extends Sprite{
     private void initBrick() {
         broken = false;
 
-        loadImage();
+        loadImage("src/resources/brick.png");
         getImageDimensions();
     }
     public void setBroken(boolean b) {
@@ -21,10 +21,7 @@ public class Brick extends Sprite{
         return broken;
     }
 
-    private void loadImage() {
-        var ii = new ImageIcon("src/resources/brick.png");
-        image = ii.getImage();
-    }
+
 
 
     /* cose inutili */

@@ -2,6 +2,8 @@
 
 import java.awt.Image;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
 /*
  * Sprite
  */
@@ -45,5 +47,9 @@ public class Sprite {
     void getImageDimensions() {
         imageWidth = image.getWidth(null);
         imageHeight = image.getHeight(null);
+    }
+    protected void loadImage(String path) {
+        var ii = new ImageIcon(path);
+        image = ii.getImage();
     }
 }

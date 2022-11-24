@@ -24,7 +24,7 @@ public class Board extends JPanel {
     private Ball[] balls;
     private Brick brick;
     private int tempCounter = 0;
-    //private Paddle paddle;
+    private Paddle paddle;
     //private Brick[] bricks;
     private boolean inGame = true;
 
@@ -44,6 +44,7 @@ public class Board extends JPanel {
 
     private void gameInit() {
 
+        paddle = new Paddle();
         ball = new Ball();
         balls = new Ball[0];
         brick = new Brick(150, 100);
@@ -68,22 +69,14 @@ public class Board extends JPanel {
         if (inGame) {
             drawObjects(g2d);
         } else {
-            gameFinished(g2d);
+            System.out.println("fine gioco");
         }
         Toolkit.getDefaultToolkit().sync();
     }
-
-    private void drawObjects(Graphics2D g2d) {
-        
-        g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(),ball.getImageWidth(), ball.getImageHeight(), this);           
-        for (int i = 0; i < balls.length; i++) {
-            g2d.drawImage(balls[i].getImage(), balls[i].getX(), balls[i].getY(), balls[i].getImageWidth(), balls[i].getImageHeight(), this);
-        }
-        //drawLine(g2d);
-
-        g2d.drawImage(brick.getImage(), brick.getX(), brick.getY(), brick.getImageWidth(), brick.getImageHeight(), this);
-
-
+    private void drawSprites(Graphics2D g2d, Sprite sprite) {
+        g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(),sprite.getImageWidth(), sprite.getImageHeight(), this);
+    }
+    private void drawCounter(Graphics2D g2d) {
         var font = new Font("Verdana", Font.BOLD, 26);
         FontMetrics fontMetrics = this.getFontMetrics(font);
 
@@ -91,28 +84,28 @@ public class Board extends JPanel {
         g2d.setFont(font);
         g2d.drawString("Points: "+ tempCounter, (Commons.WIDTH - fontMetrics.stringWidth(message))/2 , Commons.HEIGHT / 8);
     }
+    private void drawObjects(Graphics2D g2d) {
+        
+        drawCounter(g2d);
+        drawSprites(g2d, ball);
+        drawSprites(g2d, paddle);
+        drawSprites(g2d, brick);
 
-    private void gameFinished(Graphics2D g2d) {
+        for (int i = 0; i < balls.length; i++) {
+            drawSprites(g2d, balls[i]);
+        }
 
-        var font = new Font("Verdana", Font.BOLD, 18);
-        FontMetrics fontMetrics = this.getFontMetrics(font);
-
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(font);
-        g2d.drawString(message, (Commons.WIDTH - fontMetrics.stringWidth(message)) / 2, Commons.WIDTH / 2);
-    }
-    private void drawLine(Graphics2D g2d) { 
-        g2d.drawLine(ball.getX()+13, ball.getY()+13, (ball.getX()+13)+ (ball.getXDir()*1000 ), (ball.getY()+13)+(ball.getYDir()*1000));     
+        
     }
 
     private class TAdapter extends KeyAdapter {
         @Override
         public void keyReleased(KeyEvent e) {
-            //paddle.keyReleased(e);
+            paddle.keyReleased(e);
         }
         @Override
         public void keyPressed(KeyEvent e) {
-            //paddle.keyPressed(e);
+            paddle.keyPressed(e);
         }
     }
 
@@ -129,7 +122,7 @@ public class Board extends JPanel {
             balls[i].move();
         }
         
-        //paddle.move();
+        paddle.move();
         checkCollision();
         repaint();
     }
@@ -145,15 +138,24 @@ public class Board extends JPanel {
 
     private void checkCollision() {
         if(ball.getY()+ball.getImageHeight() > brick.getY() && ball.getY() < brick.getY()+brick.getImageHeight() 
-        && ball.getX() > brick.getX() && ball.getX() < brick.getX()+brick.getImageWidth()
+            && ball.getX()+ball.getImageWidth() > brick.getX() && ball.getX() < brick.getX()+brick.getImageWidth()
+            ) {
+                //brick.ballPosition(ball.getX(),ball.getY());
+                ball.setYDir((int) (ball.getYDir()*-1.0));
+                ball.incrementaVel();
+                tempCounter++;
+                brick.setX((int)(Math.random()* Commons.WIDTH)-brick.getImageWidth());
+                brick.setY(100);//(int)(Math.random()* (Commons.WIDTH-brick.getImageWidth())));
+                brick.position();
+            }
+        
+
+        if(ball.getY()+ball.getImageHeight() > paddle.getY() && ball.getY() < paddle.getY()+paddle.getImageHeight() 
+        && ball.getX() > paddle.getX() && ball.getX() < paddle.getX()+paddle.getImageWidth() 
         ) {
             //brick.ballPosition(ball.getX(),ball.getY());
-            ball.setYDir(ball.getYDir()*-1);
-            ball.incrementaVel();
-            tempCounter++;
-            brick.setX((int)(Math.random()* Commons.WIDTH)-brick.getImageWidth());
-            brick.setY(100);//(int)(Math.random()* (Commons.WIDTH-brick.getImageWidth())));
-            brick.position();
+            ball.setYDir((int) (ball.getYDir()*-1.0));
         }
     }
+
 }

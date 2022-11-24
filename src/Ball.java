@@ -1,48 +1,52 @@
-import javax.swing.ImageIcon;
+
 
 public class Ball extends Sprite {
-    private int xdir;
-    private int ydir;
+    private double xdir;
+    private double ydir;
     private int vel;
+    private double xDoublePos, yDoublePos;
     private final int MAX_VEL = 4;
 
     public Ball() {
         initBall();
     }
     private void initBall() {
-        xdir = 1;
-        ydir = 0;
-        vel = 3;
+        xdir = 4;
+        ydir = 1;
+        vel = 2;
+        xDoublePos = x;
+        yDoublePos = y;
 
-
-        loadImage();
+        loadImage("src/resources/ball.png");
         getImageDimensions();
         resetState();
-    }
-
-    private void loadImage() {
-        var ii = new ImageIcon("src/resources/ball.png");
-        image = ii.getImage();
     }
     /**
      * move the ball adding to position(x,y) the direction of the ball
      */
     void move() {
+        
+        xDoublePos += (xdir/ydir) * vel;
+        yDoublePos += (ydir/xdir) * vel;
+        System.out.println("xDoublePos: " + xDoublePos + " yDoublePos: " + yDoublePos + "xdir: " + (xdir/ydir));
+        x = (int)xDoublePos;
+        y = (int)yDoublePos;
+        /*
         x += (xdir* vel);
         y += (ydir* vel);
-
+*/
         if(x == 0) {
             setXDir(1);
         }
 
         // if the ball is on the end of the screen the direction become negative direction
         if(x > Commons.WIDTH - imageWidth || x < 0) {
-            setXDir(xdir*-1);
+            setXDir((int)xdir*-1);
             
         }
         
         if(y > Commons.HEIGHT - imageHeight || y < 0) {
-            setYDir(ydir*-1);
+            setYDir((int)ydir*-1);
             
         }
 
@@ -59,11 +63,23 @@ public class Ball extends Sprite {
     void setYDir(int y) {
         ydir = y;
     }
-    public int getYDir() {
+    public double getYDir() {
         return ydir;
     }
-    public int getXDir() {
+    public double getXDir() {
         return xdir;
+    }
+    public double getXDoublePos() {
+        return xDoublePos;
+    }
+    public double getYDoublePos() {
+        return yDoublePos;
+    }
+    public void setXDoublePos(double DoublePos) {
+        xDoublePos = DoublePos;
+    }
+    public void setYDoublePos(double DoublePos) {
+        xDoublePos = DoublePos;
     }
     public void incrementaVel() {
         if(vel < MAX_VEL) vel++;
