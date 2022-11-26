@@ -1,6 +1,6 @@
 import javax.swing.ImageIcon;
 
-public class Brick extends Sprite{
+public class Brick extends Sprite {
     private boolean broken;
 
     public Brick(int x, int y) {
@@ -8,28 +8,29 @@ public class Brick extends Sprite{
         this.y = y;
         initBrick();
     }
+
     private void initBrick() {
         broken = false;
 
         loadImage("src/resources/brick.png");
         getImageDimensions();
     }
+
     public void setBroken(boolean b) {
         broken = b;
     }
+
     public boolean isBroken() {
         return broken;
     }
 
-
-
-
-    /* cose inutili */
-    public void ballPosition(int xBall, int yBall) {
-        System.out.println("xBall:" + xBall + "yBall:" + yBall);
+    public void checkCollision(Ball ball) {
+        if (ball.getY() + ball.getImageHeight() > getY() && ball.getY() < getY() + getImageHeight()
+                && ball.getX() + ball.getImageWidth() > getX() && ball.getX() < getX() + getImageWidth()) {
+            ball.setYDir(ball.getYDir() * -1.0);
+            setX((int) (Math.random() * Commons.WIDTH) - getImageWidth());
+            setY(100);
+        }
     }
-    public void position(){
-        System.out.println("x: " + x + "y:" + y);
-    }
-    
+
 }

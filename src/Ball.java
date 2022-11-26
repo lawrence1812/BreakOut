@@ -12,7 +12,7 @@ public class Ball extends Sprite {
     }
     private void initBall() {
         xdir = 1;
-        ydir = 5;
+        ydir = 1;
         yVel = 1;
         xDoublePos = x;
         yDoublePos = y;
@@ -35,6 +35,12 @@ public class Ball extends Sprite {
         checkBounds();
 
     }
+    // change the position of the ball at initial position
+    private void resetState() {
+        x = Commons.INIT_BALL_X;
+        y = Commons.INIT_BALL_Y;
+    }
+
     private void checkBounds() {
         // if the ball is on the end of the screen the direction become negative direction
         if(x > Commons.WIDTH - imageWidth || x < 0) {
@@ -49,11 +55,6 @@ public class Ball extends Sprite {
             if(y < 0) yDoublePos = 1;
             ydir = ydir*(-1);  
         }
-    }
-    // change the position of the ball at initial position
-    private void resetState() {
-        x = Commons.INIT_BALL_X;
-        y = Commons.INIT_BALL_Y;
     }
 
     void setXDir(double x) {
@@ -80,6 +81,7 @@ public class Ball extends Sprite {
     public void setYDoublePos(double DoublePos) {
         xDoublePos = DoublePos;
     }
+
     
 
 }

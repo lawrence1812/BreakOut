@@ -138,22 +138,12 @@ public class Board extends JPanel {
 
     private void checkCollision() {
         // palla e brick
-        if(ball.getY()+ball.getImageHeight() > brick.getY() && ball.getY() < brick.getY()+brick.getImageHeight() 
-            && ball.getX()+ball.getImageWidth() > brick.getX() && ball.getX() < brick.getX()+brick.getImageWidth()
-            ) {
-                //brick.ballPosition(ball.getX(),ball.getY());
-                ball.setYDir(ball.getYDir()*-1.0);
-                tempCounter++;
-                brick.setX((int)(Math.random()* Commons.WIDTH)-brick.getImageWidth());
-                brick.setY(100);//(int)(Math.random()* (Commons.WIDTH-brick.getImageWidth())));
-                brick.position();
-            }
+        
         
         //palla e paddle
         if(ball.getY()+ball.getImageHeight() > paddle.getY() && ball.getY() < paddle.getY()+paddle.getImageHeight() 
         && ball.getX() > paddle.getX() && ball.getX() < paddle.getX()+paddle.getImageWidth() 
         ) {
-            //brick.ballPosition(ball.getX(),ball.getY());
             ball.setYDir(ball.getYDir()*-1.0);
         }
     }
