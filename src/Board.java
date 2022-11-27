@@ -19,17 +19,11 @@ import java.awt.event.KeyEvent;
 public class Board extends JPanel {
 
     private Timer timer;
-    private String message = "Game Over";
     private Ball ball;
-    private Ball[] balls;
-    private Brick brick;
-    private int tempCounter = 0;
     private Paddle paddle;
-    //private Brick[] bricks;
     private boolean inGame = true;
 
     public Board() {
-
         initBoard();
     }
 
@@ -46,13 +40,6 @@ public class Board extends JPanel {
 
         paddle = new Paddle();
         ball = new Ball();
-        balls = new Ball[0];
-        brick = new Brick(150, 100);
-        
-        for (int i = 0; i < balls.length; i++) {
-            balls[i] = new Ball();
-            balls[i].setX(10 * i);
-        }
         
 
         timer = new Timer(Commons.PERIOD, new GameCycle());
@@ -82,18 +69,13 @@ public class Board extends JPanel {
 
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
-        g2d.drawString("Points: "+ tempCounter, (Commons.WIDTH - fontMetrics.stringWidth(message))/2 , Commons.HEIGHT / 8);
+        g2d.drawString("Pong game", (Commons.WIDTH - fontMetrics.stringWidth("Pong game"))/2 , Commons.HEIGHT / 8);
     }
     private void drawObjects(Graphics2D g2d) {
         
         drawCounter(g2d);
         drawSprites(g2d, ball);
         drawSprites(g2d, paddle);
-        drawSprites(g2d, brick);
-
-        for (int i = 0; i < balls.length; i++) {
-            drawSprites(g2d, balls[i]);
-        }
 
         
     }
@@ -117,11 +99,7 @@ public class Board extends JPanel {
     }
 
     private void doGameCycle() {   
-        ball.move();
-        for (int i = 0; i < balls.length; i++) {
-            balls[i].move();
-        }
-        
+        ball.move(); 
         paddle.move();
         checkCollision();
         repaint();
@@ -137,15 +115,8 @@ public class Board extends JPanel {
     }
 
     private void checkCollision() {
-        // palla e brick
+        paddle.paddleCollision(ball);
         
-        
-        //palla e paddle
-        if(ball.getY()+ball.getImageHeight() > paddle.getY() && ball.getY() < paddle.getY()+paddle.getImageHeight() 
-        && ball.getX() > paddle.getX() && ball.getX() < paddle.getX()+paddle.getImageWidth() 
-        ) {
-            ball.setYDir(ball.getYDir()*-1.0);
-        }
     }
 
 }

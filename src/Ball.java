@@ -12,7 +12,7 @@ public class Ball extends Sprite {
     }
     private void initBall() {
         xdir = 1;
-        ydir = 1;
+        ydir = 3;
         yVel = 1;
         xDoublePos = x;
         yDoublePos = y;
@@ -26,8 +26,8 @@ public class Ball extends Sprite {
      */
     void move() {
         
-        xDoublePos += (xdir/Math.abs(ydir)) ;
-        yDoublePos += (ydir/Math.abs(xdir)) ;
+        xDoublePos += (xdir/Math.abs(ydir)) * 2;
+        yDoublePos += (ydir/Math.abs(xdir)) * 2;
     
         x = (int)xDoublePos;
         y = (int)yDoublePos;
