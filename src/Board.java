@@ -49,7 +49,7 @@ public class Board extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        var g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
@@ -64,7 +64,7 @@ public class Board extends JPanel {
         g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(),sprite.getImageWidth(), sprite.getImageHeight(), this);
     }
     private void drawCounter(Graphics2D g2d) {
-        var font = new Font("Verdana", Font.BOLD, 26);
+        Font font = new Font("Verdana", Font.BOLD, 26);
         FontMetrics fontMetrics = this.getFontMetrics(font);
 
         g2d.setColor(Color.BLACK);

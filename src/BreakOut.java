@@ -21,7 +21,7 @@ public class BreakOut  extends JFrame{
         
         EventQueue.invokeLater(() -> {
 
-            var game = new BreakOut();
+            BreakOut game = new BreakOut();
             game.setVisible(true);
         });
     }

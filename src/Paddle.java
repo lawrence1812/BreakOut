@@ -55,10 +55,11 @@ public class Paddle extends Sprite{
         if(ball.getY()+ball.getImageHeight() > getY() && ball.getY() < getY()+ getImageHeight() 
         && ball.getX() > getX() && ball.getX() < getX()+ getImageWidth() 
         ) { 
-            coef = ((ball.x - this.x) - (this.getImageWidth()/2+1)) / 15;
+            coef = ((ball.x - this.x) - (this.getImageWidth()/2+1)) / 20;
             System.out.println(coef); 
+            
             ball.setYDir(ball.getYDir()* -1.0);
-            ball.setXDir(coef);
+            ball.setXDir(ball.getXDir() + coef);
         }
     }
     

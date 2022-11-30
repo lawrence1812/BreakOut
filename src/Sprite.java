@@ -49,7 +49,7 @@ public class Sprite {
         imageHeight = image.getHeight(null);
     }
     protected void loadImage(String path) {
-        var ii = new ImageIcon(path);
+        ImageIcon ii = new ImageIcon(path);
         image = ii.getImage();
     }
 }
